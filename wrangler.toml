@@ -4,7 +4,7 @@ main = "src/index.ts"
 compatibility_date = "2024-06-10"
 
 [triggers]
-crons = ["* * * * *"]
+crons = ["*/15 * * * *"]
 
 [vars]
 BOT_INFO = "{\"id\":7210640302,\"is_bot\":true,\"first_name\":\"Anne Frank Museum Tickets Bot\",\"username\":\"afm_tickets_bot\",\"can_join_groups\":true,\"can_read_all_group_messages\":false,\"supports_inline_queries\":false,\"can_connect_to_business\":false}"
