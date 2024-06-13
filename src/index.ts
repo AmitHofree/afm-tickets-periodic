@@ -41,7 +41,9 @@ export default {
 		const availableDates = appointmentDates
 			.filter((dayCapacity) => dayCapacity.availability.available > 0)
 			.map((dayCapacity) => dayCapacity.day);
+		console.log(`Found ${availableDates.length} available dates`);
 		if (availableDates.length > 0) {
+			console.log("Found available dates! Notifying registered chats");
 			const chatIds = await getChatIds(env);
 			await Promise.all(chatIds.map((chatId) => bot.api.sendMessage(chatId, prepareMessage(availableDates), { parse_mode: 'HTML' })));
 		}
@@ -50,8 +52,8 @@ export default {
 
 async function getAppointmentDates(env: Env, from_date: Date, to_date: Date): Promise<DayCapacity[]> {
 	const params = {
-		from_date: from_date.toISOString().split('T')[0],
-		to_date: to_date.toISOString().split('T')[0],
+		fromdate: from_date.toISOString().split('T')[0],
+		todate: to_date.toISOString().split('T')[0],
 		quantity: 0,
 	};
 
@@ -77,7 +79,7 @@ async function getChatIds(env: Env): Promise<number[]> {
 
 function prepareMessage(availableDates: string[]): string {
 	let response = 'Found available dates: \n';
-	for (const date of response) {
+	for (const date of availableDates) {
 		response += `${date}\n`;
 	}
 	response += `Click <a href='${ORDER_URL}'>here</a> to order!`;
